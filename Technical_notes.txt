@@ -1,0 +1,8 @@
+Run Virtual Environment:
+source .devcontainer/src/.venv/bin/activate
+
+Run Server:
+python manage.py runserver
+
+Side note:
+Django may need to be reinstalled.
