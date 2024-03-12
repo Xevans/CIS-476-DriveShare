@@ -6,3 +6,4 @@ python manage.py runserver
 
 Side note:
 Django may need to be reinstalled.
+This is because containers are stateless. Make sure it is reading requirements.txt so it can build the container w necessary dependencies
