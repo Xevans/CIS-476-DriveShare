@@ -21,5 +21,6 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("landing.urls")),# when a user visits the (websiteName.com/) they will be directed to smartsplit.url file
-    path("register/", include("users.urls")),
+    path("accounts", include("users.urls")),
+    path("accounts/register", include("users.urls")),
 ] 

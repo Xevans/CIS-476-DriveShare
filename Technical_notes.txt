@@ -2,7 +2,7 @@ Run Virtual Environment:
 source .devcontainer/src/.venv/bin/activate
 
 Run Server:
-python manage.py runserver
+python manage.py runserver (run this command in the src directory)
 
 Side note:
 Django may need to be reinstalled.

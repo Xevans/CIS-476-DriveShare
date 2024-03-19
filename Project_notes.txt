@@ -1,2 +1,4 @@
 3/18
 set up user account model and profile models.
+
+Register page: host/accounts/register
