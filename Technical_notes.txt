@@ -7,3 +7,6 @@ python manage.py runserver (run this command in the src directory)
 Side note:
 Django may need to be reinstalled.
 This is because containers are stateless. Make sure it is reading requirements.txt so it can build the container w necessary dependencies
+
+Adding dependencies:
+Be sure to run the command 'pip freeze > requirements.txt' in the root folder after adding or modifying a dependency so docker can install it on build.

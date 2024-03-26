@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from users.views import ChangePasswordView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("landing.urls")),# when a user visits the (websiteName.com/) they will be directed to smartsplit.url file
     path("accounts", include("users.urls")),
     path("accounts/register", include("users.urls")),
+    path("users-profile", include("users.urls")),
+    path('password-change/', ChangePasswordView.as_view(), name='password_change'),
 ] 
