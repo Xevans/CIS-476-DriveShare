@@ -2,3 +2,10 @@
 set up user account model and profile models.
 
 Register page: host/accounts/register
+
+3/25
+set up user profiles.
+    - Wallet
+    - Cars Listed
+    - Reviews given
+    - Reviews recieved
