@@ -11,4 +11,15 @@ set up user profiles.
     - Reviews recieved
 
 
-han;testploy01
+han;testploy01\
+
+3/26
+Testing pathing to other apps in the project
+EX: logout from landing, clicking profile from landinging
+
+Test user media resizing.
+
+Create form to add credits to the user's wallet.
+
+
+
