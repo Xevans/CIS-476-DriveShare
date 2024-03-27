@@ -15,7 +15,7 @@ han;testploy01
 
 3/26
 Testing pathing to other apps in the project
-EX: logout from landing, clicking profile from landinging
+EX: logout from landing, clicking profile from landing (done)
 
 Test user media resizing.
 
