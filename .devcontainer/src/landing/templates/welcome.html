@@ -6,6 +6,11 @@
 
 {% block content %} 
 
-<h1>Welcome Page</h1>
+{% if user.is_authenticated%}
+<h1>Welcome back, {{user.username}}</h1>
+{% else %}
+<h1>Welcome To DriveShare. Create an account today, or Sign in.</h1>
+{% endif %}
+
 
 {% endblock content %}
