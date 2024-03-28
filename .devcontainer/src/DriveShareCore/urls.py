@@ -23,5 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("landing.urls")),# when a user visits the (websiteName.com/) they will be directed to smartsplit.url file
     path("accounts", include("users.urls")),
+    path("pages", include("pages.urls")),
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
 ] 

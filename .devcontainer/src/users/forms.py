@@ -82,8 +82,14 @@ class UpdateUserForm(forms.ModelForm):
 class UpdateProfileForm(forms.ModelForm):
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    balance = forms.FloatField(widget=forms.FloatField())
 
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio', 'balance']
+        fields = ['avatar', 'bio']
+
+class UpdateBalanceForm(forms.ModelForm):
+    balance = forms.FloatField()
+
+    class Meta:
+        model = Profile
+        fields = ['balance']

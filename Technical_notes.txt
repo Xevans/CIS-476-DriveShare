@@ -1,5 +1,6 @@
 Run Virtual Environment:
 source .devcontainer/src/.venv/bin/activate
+cd .devcontainer/src
 
 Run Server:
 python manage.py runserver (run this command in the src directory)
