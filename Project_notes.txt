@@ -21,7 +21,14 @@ Test user media resizing.
 
 Create form to add credits to the user's wallet.
 
-han2;testploy02
+
+3/28
+han2;testploy02 - current test account
+
+Adding to user balance is functional.
+
+Create a car listing system.
+Create model >> create form to upload >> create page to display in grid view (loop)
 
 
 
