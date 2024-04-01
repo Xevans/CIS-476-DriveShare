@@ -49,9 +49,11 @@ def myListings(request):
             this_mileage = listing_form.cleaned_data['mileage']
             this_size_type = listing_form.cleaned_data['size_type']
 
+            # need to attatch ownership to vehichle
             # assemble the new object
-            
+            new_listing = Listings.objects.create(owner_username=request.user.username, make=this_make, model=this_model, year=this_year, color=this_color, size_type=this_size_type, mileage=this_mileage)
             # save object
+            new_listing.save()
 
             return redirect(to='users-listings')
         

@@ -2,6 +2,7 @@ from django import forms
 from .models import Listings
 
 class ListingForm(forms.ModelForm):
+    owner_username = forms.CharField()
     make = forms.CharField()
     model = forms.CharField()
     year = forms.IntegerField()
@@ -11,4 +12,4 @@ class ListingForm(forms.ModelForm):
 
     class Meta:
         model = Listings
-        fields = ['make', 'model', 'year', 'size_type', 'color', 'mileage']
+        fields = ['owner_username', 'make', 'model', 'year', 'size_type', 'color', 'mileage']
