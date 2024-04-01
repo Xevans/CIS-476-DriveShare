@@ -28,10 +28,13 @@
             <a class="nav-link" href="#">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users-wallet' %}">Wallet</a>
+            <a class="nav-link" href="{% url 'users-wallet' %}">My Wallet</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'users-listings' %}">Listings</a>
+            <a class="nav-link" href="{% url 'users-listings' %}">My Vehichles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'all-users-listings' %}">DriveShare Vehichles</a>
           </li>
 
           {% else %}

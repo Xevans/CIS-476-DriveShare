@@ -30,5 +30,22 @@ Adding to user balance is functional.
 Create a car listing system.
 Create model >> create form to upload >> create page to display in grid view (loop)
 
-Testing listing creation
+Testing listing creation (done)
+
+4/1
+Testing Displaying of uploaded listings for personal listing view. (Done)
+
+Testing Displaying of all uploaded listings for public listing view.(Done)
+
+Remaining product work items:
+Give Cards to listings
+Add modals to the listings for button interactions
+Add and test Application system
+Add and test a Review system (show reviews on user dashboard page (welcome authenticated))
+Add a rental history tracker (user dashboard page (welcome authenticated))
+Show balance on user dashboard page
+Show incoming Requests on user dashboard page
+
+
+
 

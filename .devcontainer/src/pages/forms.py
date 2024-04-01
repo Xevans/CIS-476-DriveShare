@@ -2,14 +2,13 @@ from django import forms
 from .models import Listings
 
 class ListingForm(forms.ModelForm):
-    owner_username = forms.CharField()
-    make = forms.CharField()
-    model = forms.CharField()
-    year = forms.IntegerField()
-    size_type = forms.CharField()
-    color = forms.CharField()
-    mileage = forms.IntegerField()
+    make = forms.CharField(required=True, max_length=50)
+    model = forms.CharField(required=True, max_length=50)
+    year = forms.IntegerField(required=True)
+    size_type = forms.CharField(required=True, max_length=30)
+    color = forms.CharField(required=True, max_length=50)
+    mileage = forms.IntegerField(required=True)
 
     class Meta:
         model = Listings
-        fields = ['owner_username', 'make', 'model', 'year', 'size_type', 'color', 'mileage']
+        fields = ['make', 'model', 'year', 'size_type', 'color', 'mileage']
