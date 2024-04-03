@@ -47,5 +47,33 @@ Show balance on user dashboard page
 Show incoming Requests on user dashboard page
 
 
+Testing Review System
+
+4/2
+Update listing upload process (is_available does not need to be initialized. Already default to true)
+    - Once listing is created retrieve the table id and set the vehicle id field to it (done)
+
+
+Update public listings to show apply button
+    - open modal to prompt ("how many days?") and below "send", "cancel"
+    - show apply button only for listings NOT made the current user. (done)
+I have set most of the fields to be filled out by the system.
+User only needs to set days to calculate est. price.
+
+Update the welcome page
+    - create a home link in the nav.
+    - create dashboard layout (just a bunch of retrieved information for the user to view and respond to).
+        - display listings
+        - display application Requests (outgoing)
+        - display application Requests (incoming)
+        - display reviews (do later)
+        - display DMS (do later)
+
+create transaction history page
+    - show past and current rentals.
+
+
+
+
 
 

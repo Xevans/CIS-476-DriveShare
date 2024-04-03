@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.forms import UpdateBalanceForm
-from .forms import ListingForm
-from .models import Listings
+from .forms import ListingForm, RentalApplicationForm
+from .models import Listings, RentalApplication, RentalTansactionHistory
 from django.contrib import messages
 from django.db.models import Q
 
@@ -49,12 +49,16 @@ def myListings(request):
             this_color = listing_form.cleaned_data['color']
             this_mileage = listing_form.cleaned_data['mileage']
             this_size_type = listing_form.cleaned_data['size_type']
+            cost_per_day = listing_form.cleaned_data['cost_per_day']
 
             # need to attatch ownership to vehichle
             # assemble the new object
-            new_listing = Listings.objects.create(owner_username=request.user.username, make=this_make, model=this_model, year=this_year, color=this_color, size_type=this_size_type, mileage=this_mileage)
+            new_listing = Listings.objects.create(owner_username=request.user.username, make=this_make, model=this_model, year=this_year, color=this_color, size_type=this_size_type, mileage=this_mileage, cost_per_day=cost_per_day)
             # save object
             print("here")
+            new_listing.save()
+            # set vehicle idea
+            new_listing.vehicle_listing_id = new_listing.pk
             new_listing.save()
 
             return redirect(to='users-listings')
@@ -74,9 +78,17 @@ def myListings(request):
 def publicListings(request):
     if request.method == "POST":
         # sending an application
-        pass
+        rental_application_form = RentalApplicationForm(request.POST, instance=request.user.profile)
+        
+        if rental_application_form.is_valid():
+            this_req_lease_length = rental_application_form.cleaned_data['req_lease_length']
+
+            #construct application object
     else:
         listings_from_all_users = Listings.objects.all()
+        rental_application_form = RentalApplicationForm(request.POST, instance=request.user.profile)
+
         
 
-    return render(request, 'listings.html', {'all_listings': listings_from_all_users})
+    return render(request, 'listings.html', {'all_listings': listings_from_all_users, 'rental_application_form': rental_application_form})
+
