@@ -79,11 +79,36 @@ def publicListings(request):
     if request.method == "POST":
         # sending an application
         rental_application_form = RentalApplicationForm(request.POST, instance=request.user.profile)
+
         
         if rental_application_form.is_valid():
-            this_req_lease_length = rental_application_form.cleaned_data['req_lease_length']
+            this_req_lease_length_days = rental_application_form.cleaned_data['req_lease_length_days']
+            this_vehicle_id = request.POST['vehichle-id']
+            this_borrower_username = request.user.username
+            # search for listing by vehicle id
+            print('here1')
+            listing_object = Listings.objects.filter(Q(vehicle_listing_id=this_vehicle_id))
+            # if found, exract info 
+            if listing_object:
+                print('here2')
+                this_owner_username = listing_object[0].owner_username
+                this_cost_per_day = listing_object[0].cost_per_day
+
+                #construct application
+                new_application = RentalApplication.objects.create(owner_username=this_owner_username, borrower_username=this_borrower_username, cost_per_day=this_cost_per_day, vehicle_listing_id=this_vehicle_id, req_lease_length_days=this_req_lease_length_days)
+                new_application.save()
+                print('success')
+                return redirect(to='all-users-listings')
+
+            else:
+                print("failed to retrieve listing object")
+                return redirect(to='all-users-listings')
 
             #construct application object
+
+
+            #new_application = RentalApplication.objects.create()
+            return redirect(to='all-users-listings')
     else:
         listings_from_all_users = Listings.objects.all()
         rental_application_form = RentalApplicationForm(request.POST, instance=request.user.profile)
