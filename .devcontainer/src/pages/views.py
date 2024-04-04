@@ -6,7 +6,12 @@ from .models import Listings, RentalApplication, RentalTansactionHistory
 from django.contrib import messages
 from django.db.models import Q
 
-# Create your views here.
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
 
 @login_required
 def wallet(request):
