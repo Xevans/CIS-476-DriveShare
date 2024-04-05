@@ -18,6 +18,7 @@ class Reviews(models.Model):
     sender = models.CharField(max_length=100, default="")
     recipient = models.CharField(max_length=100, default="")
     review_text = models.TextField(default="")
+    review_id = models.IntegerField(default=-1)
 
 
 class RentalApplication(models.Model):
@@ -28,6 +29,8 @@ class RentalApplication(models.Model):
     is_approved = models.BooleanField(default=False)
     is_denied = models.BooleanField(default=False)
     req_lease_length_days = models.IntegerField(default=2)
+    application_id = models.IntegerField(default=-1)
+    profile_id = models.IntegerField(default=-1)
 
 
 class RentalTansactionHistory:
@@ -37,6 +40,7 @@ class RentalTansactionHistory:
     vehicle_listing_id = models.IntegerField(default=-1)
     lease_length_days = models.IntegerField(default=2)
     is_returned = models.BooleanField(default=False)
+    application_id = models.IntegerField(default=-1)
 
 
 

@@ -5,12 +5,55 @@ from .forms import ListingForm, RentalApplicationForm
 from .models import Listings, RentalApplication, RentalTansactionHistory
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.models import User
+from users.models import Profile
 
 
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+@login_required
+def dashboard(request):
+    this_user_username = request.user.username
+
+    if request.method == 'POST':
+        
+        print("here1")
+        this_application_id = request.POST['application-id']
+
+        # retrieve application and borrower user objects
+        print(this_application_id)
+        application = RentalApplication.objects.filter(application_id=this_application_id)
+        
+        this_application = application[0]
+
+        rental_total_cost = this_application.cost_per_day * this_application.req_lease_length_days
+        this_borrower = Profile.objects.filter(id=this_application.profile_id)
+        this_borrower_balance = this_borrower[0].balance
+        # check sufficient funds of borrower
+        if this_borrower_balance > rental_total_cost:
+            #can afford
+            pass
+        else:
+            #cant afford
+            pass
+
+
+        # deduct and pay members (return error message if failure and redirect)
+        # update to approve status if valid and redirect.
+
+        return redirect(to='dashboard')
+
+    else:
+        user_listings = Listings.objects.filter(Q(owner_username=this_user_username)) # filter by usename
+        user_applications_outgoing = RentalApplication.objects.filter(Q(borrower_username=this_user_username)) # filter by borrower == this user
+        user_applications_incoming = RentalApplication.objects.filter(Q(owner_username=this_user_username)) # filter by owner == this user
+        # reviews TBD
+        #DMs TBD
+
+
+    return render(request, 'dashboard.html', {'user_listings': user_listings, 'user_applications_outgoing': user_applications_outgoing, 'user_applications_incoming': user_applications_incoming})
 
 
 @login_required
@@ -60,9 +103,8 @@ def myListings(request):
             # assemble the new object
             new_listing = Listings.objects.create(owner_username=request.user.username, make=this_make, model=this_model, year=this_year, color=this_color, size_type=this_size_type, mileage=this_mileage, cost_per_day=cost_per_day)
             # save object
-            print("here")
             new_listing.save()
-            # set vehicle idea
+            # set vehicle id
             new_listing.vehicle_listing_id = new_listing.pk
             new_listing.save()
 
@@ -91,16 +133,18 @@ def publicListings(request):
             this_vehicle_id = request.POST['vehichle-id']
             this_borrower_username = request.user.username
             # search for listing by vehicle id
-            print('here1')
             listing_object = Listings.objects.filter(Q(vehicle_listing_id=this_vehicle_id))
             # if found, exract info 
             if listing_object:
-                print('here2')
                 this_owner_username = listing_object[0].owner_username
                 this_cost_per_day = listing_object[0].cost_per_day
 
                 #construct application
                 new_application = RentalApplication.objects.create(owner_username=this_owner_username, borrower_username=this_borrower_username, cost_per_day=this_cost_per_day, vehicle_listing_id=this_vehicle_id, req_lease_length_days=this_req_lease_length_days)
+                new_application.save()
+                # set application id
+                new_application.application_id = new_application.pk
+                new_application.profile_id = request.user.profile.pk
                 new_application.save()
                 print('success')
                 return redirect(to='all-users-listings')

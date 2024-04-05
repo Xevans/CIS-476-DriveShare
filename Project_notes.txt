@@ -61,18 +61,37 @@ I have set most of the fields to be filled out by the system.
 User only needs to set days to calculate est. price.
 - edge case (user submits negative integer for the lease length).
 
+4/4
 
 Update the welcome page
-    - create a home link in the nav.
+    - create a home link in the nav. (done)
     - create dashboard layout (just a bunch of retrieved information for the user to view and respond to).
-        - display listings
-        - display application Requests (outgoing)
-        - display application Requests (incoming)
+        - display listings (done)
+        - display application Requests (outgoing) (done)
+        - display application Requests (incoming) (done)
         - display reviews (do later)
         - display DMs (do later)
 
+    - check is application is_denied and is_approved.
+        - if is_denied is True, show that application is rejected (not required in scope but user would be able to delete the app delete)
+        - if is_approved is True, show that the application is approved and give user option to accept the driveshare
+            - calculated total will show, and payment form [<- create this] will need to be submitted to finalize the application process.
+                - validate user has funds, if not, let them know 'insufficient funds', if valid, deduct from borrower, pay the owner.
+
+1. add a button the name accept
+2. send a post with the vaule being the current record's application id
+3. retrieve id on backend
+4. manipulate its attributes based on the 
+
+(!) Do not worry about reject functionality in the scope of the coursework submition
+
 create transaction history page
     - show past and current rentals.
+
+
+(1) Work on accept and reject process of applications.
+(2) Work on review system. (if user has transacted with another user, the reviews page shows the user's name and a textbox.)
+(3) messaging system
 
 
 
