@@ -72,7 +72,7 @@ Update the welcome page
         - display reviews (do later)
         - display DMs (do later)
 
-    - check is application is_denied and is_approved.
+    - check is application is_denied and is_approved. (done)
         - if is_denied is True, show that application is rejected (not required in scope but user would be able to delete the app delete)
         - if is_approved is True, show that the application is approved and give user option to accept the driveshare
             - calculated total will show, and payment form [<- create this] will need to be submitted to finalize the application process.
@@ -88,12 +88,23 @@ Update the welcome page
 create transaction history page
     - show past and current rentals.
 
+make it so that only one persone can apply at a time.
+(add an is applied for boolean field.)
+
 
 (1) Work on accept and reject process of applications.
 (2) Work on review system. (if user has transacted with another user, the reviews page shows the user's name and a textbox.)
 (3) messaging system
 
+4/5
+fix payment process
 
+rebuild db try to apply and approve and see if balance is negated.
+next add a review page where the view checks to see if the user has any past transactions
+if so, it allows the user to write a review for each unique username found.
+
+(skip dms. Potentially add messaging to application as a substitue.)
+Spend the weekend ironing out kinks and making the pages look nice.
 
 
 

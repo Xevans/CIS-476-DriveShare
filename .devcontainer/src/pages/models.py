@@ -33,7 +33,7 @@ class RentalApplication(models.Model):
     profile_id = models.IntegerField(default=-1)
 
 
-class RentalTansactionHistory:
+class RentalTansactionHistory(models.Model):
     owner_username = models.CharField(max_length=100, default="")
     borrower_username = models.CharField(max_length=100, default="")
     cost_per_day = models.FloatField(default=0.00)

@@ -30,14 +30,22 @@ def dashboard(request):
 
         rental_total_cost = this_application.cost_per_day * this_application.req_lease_length_days
         this_borrower = Profile.objects.filter(id=this_application.profile_id)
-        this_borrower_balance = this_borrower[0].balance
-        # check sufficient funds of borrower
-        if this_borrower_balance > rental_total_cost:
-            #can afford
-            pass
-        else:
-            #cant afford
-            pass
+        this_borrower = this_borrower[0]
+
+
+        # check sufficient funds of borrower [ <- dont check, this needs to happen on the borrower's side either furing applying or on acceptance of approval]
+        this_borrower.balance = this_borrower.balance - rental_total_cost
+        this_borrower.save()
+
+        #request.user.profile.balance.save() Have to pull actual profile from db
+
+        this_application.is_approved = True
+        this_application.save()
+        
+        new_rental_history = RentalTansactionHistory.objects.create(owner_username=this_user_username, borrower_username=this_application.borrower_username, cost_per_day=this_application.cost_per_day, vehicle_listing_id=this_application.vehicle_listing_id, lease_length_days=this_application.req_lease_length_days, application_id=this_application_id)
+        new_rental_history.save()
+        
+            
 
 
         # deduct and pay members (return error message if failure and redirect)
