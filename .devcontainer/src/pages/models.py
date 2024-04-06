@@ -29,6 +29,7 @@ class RentalApplication(models.Model):
     is_approved = models.BooleanField(default=False)
     is_denied = models.BooleanField(default=False)
     req_lease_length_days = models.IntegerField(default=2)
+    message = models.TextField(default="")
     application_id = models.IntegerField(default=-1)
     profile_id = models.IntegerField(default=-1)
 

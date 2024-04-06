@@ -36,7 +36,8 @@ class ReviewForm(forms.ModelForm):
 
 class RentalApplicationForm(forms.ModelForm):
     req_lease_length_days = forms.IntegerField(required=True)
+    message = forms.CharField(widget=forms.Textarea(attrs={'cols': 40, 'rows': 10}))
 
     class Meta:
         model = RentalApplication
-        fields = ['req_lease_length_days']
+        fields = ['req_lease_length_days', 'message']

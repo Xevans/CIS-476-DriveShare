@@ -52,6 +52,7 @@
             <div class="card-body">
               <h5 class="card-title">Applicant: {{ record.borrower_username }}</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
+                <p> Message: {{ record.message }} </p>
                 {% if record.is_approved == True %}
                     <p>Status: Approved</p>
                 {% else %}

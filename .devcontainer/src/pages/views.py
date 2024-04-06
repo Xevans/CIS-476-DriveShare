@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
 from users.models import Profile
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 @login_required
@@ -37,15 +38,24 @@ def dashboard(request):
         this_borrower.balance = this_borrower.balance - rental_total_cost
         this_borrower.save()
 
-        #request.user.profile.balance.save() Have to pull actual profile from db
+        # pay owner of vehicle
+        request.user.profile.balance += rental_total_cost
+        request.user.profile.save()
 
+        # set is_available for the listing to false.
+        listing = Listings.objects.filter(vehicle_listing_id=this_application.vehicle_listing_id)
+        this_listing = listing[0]
+        this_listing.is_available = False
+        this_listing.save()
+
+        
         this_application.is_approved = True
         this_application.save()
         
         new_rental_history = RentalTansactionHistory.objects.create(owner_username=this_user_username, borrower_username=this_application.borrower_username, cost_per_day=this_application.cost_per_day, vehicle_listing_id=this_application.vehicle_listing_id, lease_length_days=this_application.req_lease_length_days, application_id=this_application_id)
         new_rental_history.save()
         
-            
+        messages.success(request, f'You Approve your Driveshare! ${rental_total_cost} has been deposited into your account')
 
 
         # deduct and pay members (return error message if failure and redirect)
@@ -138,6 +148,7 @@ def publicListings(request):
         
         if rental_application_form.is_valid():
             this_req_lease_length_days = rental_application_form.cleaned_data['req_lease_length_days']
+            this_message = rental_application_form.cleaned_data['message']
             this_vehicle_id = request.POST['vehichle-id']
             this_borrower_username = request.user.username
             # search for listing by vehicle id
@@ -148,7 +159,7 @@ def publicListings(request):
                 this_cost_per_day = listing_object[0].cost_per_day
 
                 #construct application
-                new_application = RentalApplication.objects.create(owner_username=this_owner_username, borrower_username=this_borrower_username, cost_per_day=this_cost_per_day, vehicle_listing_id=this_vehicle_id, req_lease_length_days=this_req_lease_length_days)
+                new_application = RentalApplication.objects.create(owner_username=this_owner_username, borrower_username=this_borrower_username, cost_per_day=this_cost_per_day, vehicle_listing_id=this_vehicle_id, req_lease_length_days=this_req_lease_length_days, message=this_message)
                 new_application.save()
                 # set application id
                 new_application.application_id = new_application.pk

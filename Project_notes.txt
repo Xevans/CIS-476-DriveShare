@@ -97,11 +97,27 @@ make it so that only one persone can apply at a time.
 (3) messaging system
 
 4/5
-fix payment process
+fix payment process (done)
+rebuild db try to apply and approve and see if balance is negated. (done)
 
-rebuild db try to apply and approve and see if balance is negated.
-next add a review page where the view checks to see if the user has any past transactions
+flip is_available boolean in respective listing when application gets approved. (done)
+
+if record is_available parameter is false, show disabled button that says unavailable. (done)
+
+Allow a message field in the application form and model. Display the message in the card on the dashboard. (done)
+
+Add a past transactions page
+
+Add a review page where the view checks to see if the user has any past transactions
 if so, it allows the user to write a review for each unique username found.
+
+show sucess messages on all pages. (optional)
+
+
+Additional work tasks:
+utilize the update listing form to update the listing model.
+security questions for account recovery.
+
 
 (skip dms. Potentially add messaging to application as a substitue.)
 Spend the weekend ironing out kinks and making the pages look nice.
