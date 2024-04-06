@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}My Vehichles{% endblock title %}
 {% block content %}
-    <div class="row my-3 p-3">
-        <h1>This is the personal Listings page for {{user.username}}</h1>
+    <div class="row my-3 p-3" style="text-align: center;">
+        <h1>{{user.username}}'s Listings</h1>
     </div>
     <div>
-        <h3>Upload a listing</h3>
-        <div class="row my-3 p-3">
+        <h3 style="text-align: center;">Upload a Listing</h3>
+        <div class="row">
             <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
         </div>
         {% if user_form.errors %}
@@ -21,47 +21,53 @@
                 </button>
             </div>
         {% endif %}
-        <div class="form-content">
+        <div class="form-content" style="text-align: center;">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-row">
-                    <div class="col-md-5">
+                    <div class="">
                         <div class="form-group">
-                            <label class="small mb-1">Make of Vehichle:</label>
+                            <label class="small mb-1">Make of Vehicle:</label>
                             {{ listing_form.make }}
                         </div>
+                        <br>
                         <div class="form-group">
-                            <label class="small mb-1">Model of Vehichle:</label>
+                            <label class="small mb-1">Model of Vehicle:</label>
                             {{ listing_form.model }}
                         </div>
+                        <br>
                         <div class="form-group">
-                            <label class="small mb-1">Year of Vehichle:</label>
+                            <label class="small mb-1">Year of Vehicle:</label>
                             {{ listing_form.year }}
                         </div>
+                        <br>
                         <div class="form-group">
                             <label class="small mb-1">Body Type:</label>
                             {{ listing_form.size_type }}
                         </div>
+                        <br>
                         <div class="form-group">
-                            <label class="small mb-1">Color of Vehichle:</label>
+                            <label class="small mb-1">Color of Vehicle:</label>
                             {{ listing_form.color }}
                         </div>
+                        <br>
                         <div class="form-group">
-                            <label class="small mb-1">Mileage of Vehichle:</label>
+                            <label class="small mb-1">Mileage of Vehicle:</label>
                             {{ listing_form.mileage }}
                         </div>
+                        <br>
                         <div class="form-group">
                             <label class="small mb-1">Cost Per Day:</label>
                             {{ listing_form.cost_per_day }}
                         </div>
                     </div>
                 </div>
-                <br><br>
-                <button type="submit" class="btn btn-dark btn-lg">List Vehichle for sharing</button>
+                <br>
+                <button type="submit" class="btn btn-dark btn-lg">List Vehicle For Sharing</button>
             </form>
         </div>
-
-        <div>
+        <br>
+        <div style="text-align: center;">
             <!-- Loop through listings-->
             {% if current_user_listings %}
             <h4>Your Listings</h4>
@@ -70,7 +76,8 @@
             {% endfor %}
 
             {% else %}
-            <h4>You haven't registeded any vehichles yet </h4>
+            <br>
+            <h4>You haven't registered any vehicles yet </h4>
             {% endif %}
 
         </div>

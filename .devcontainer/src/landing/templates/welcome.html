@@ -7,10 +7,15 @@
 {% block content %} 
 
 {% if user.is_authenticated%}
-<h1>Welcome back, {{user.username}}</h1>
-{% else %}
-<h1>Welcome To DriveShare. Create an account today, or Sign in.</h1>
-{% endif %}
-
+<div class="row my-3 p-3" style="text-align: center;">
+    <h1 style="text-align: center;">Welcome back, {{user.username}}</h1>
+    {% else %}
+    <h1 style="text-align: center;">Welcome To DriveShare!</h1>
+    <br>
+    <h2 style="text-align: center;">Create An Account Today!</h1>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h2 style="text-align: center;">Or Sign In!</h1>
+    {% endif %}
+</div>
 
 {% endblock content %}

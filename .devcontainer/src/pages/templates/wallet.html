@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block title %}My Wallet{% endblock title %}
 {% block content %}
-    <div class="row my-3 p-3">
-        <h1>This is the Wallet page for {{user.username}}</h1>
-        <h2>Your Balance: {{user.profile.balance}}</h2>
+    <div class="row my-3 p-3": style="text-align: center;">
+        <h1>{{user.username}}'s Wallet</h1>
     </div>
 
-    <div class="row my-3 p-3">
+    <div class="row">
         <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
     </div>
     {% if user_form.errors %}
@@ -21,19 +20,21 @@
             </button>
         </div>
     {% endif %}
-    <div class="form-content">
+    <div class="form-content" style="text-align: center;">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
-                <div class="col-md-5">
+                <div class="">
                     <div class="form-group">
-                        <label class="small mb-1">New Balance:</label>
+                        <label class="small mb-1">Enter Amount For Payment:</label>
                         {{ balance_form.balance }}
                     </div>
                 </div>
             </div>
             <br><br>
             <button type="submit" class="btn btn-dark btn-lg">Add To Balance</button>
+            <br><br>
+            <h3> Your Balance: {{user.profile.balance}}</h3>
         </form>
     </div>
 
