@@ -10,6 +10,10 @@ class Profile(models.Model):
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField(default="Hi, I'm new here!")
     balance = models.FloatField(default=10.00)
+    is_first_time = models.BooleanField(default=True)
+    sq1 = models.CharField(default="", max_length=70)
+    sq2 = models.CharField(default="", max_length=70)
+    sq3 = models.CharField(default="", max_length=70)
 
     def __str__(self):
         return self.user.username

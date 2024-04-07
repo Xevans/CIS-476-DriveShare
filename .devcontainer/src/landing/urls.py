@@ -3,5 +3,5 @@ from .views import Welcome
 from users.views import profile
 
 urlpatterns = [
-    path('', Welcome.as_view(), name='welcome'),
+    path('', Welcome, name='welcome'),
 ]

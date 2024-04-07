@@ -1,5 +1,6 @@
 from django import forms
 from .models import Listings, Reviews, RentalApplication, RentalTansactionHistory
+from users.models import Profile
 
 class ListingForm(forms.ModelForm):
     make = forms.CharField(required=True, max_length=50)
@@ -42,3 +43,12 @@ class RentalApplicationForm(forms.ModelForm):
         model = RentalApplication
         fields = ['req_lease_length_days', 'message']
 
+
+class SecurityQuestions(forms.ModelForm):
+    sq1 = forms.CharField(required=True, max_length=70)
+    sq2 = forms.CharField(required=True, max_length=70)
+    sq3 = forms.CharField(required=True, max_length=70)
+
+    class Meta:
+        model = Profile
+        fields = ['sq1', 'sq2', 'sq3']
