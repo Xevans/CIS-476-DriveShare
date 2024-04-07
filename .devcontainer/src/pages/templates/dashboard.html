@@ -20,7 +20,12 @@
     <h4>Your Listings</h4>
     {% if user_listings %}
         {% for record in user_listings %}
-        <p>{{ record.year }} {{ record.make }} {{ record.model }}: {{ record.mileage }} miles. {{record.cost_per_day}}</p>
+        <div class="card" style="width: 18rem; height: 9rem;">
+            <div class="card-body">
+              <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles 
+                <br>Cost per Day: ${{record.cost_per_day}}</be></p>
+            </div>
         {% endfor %}
     {% else %}
     <p>Your registered DriveShare vehicles will appear here.</p>
@@ -29,7 +34,7 @@
     <h4>Your Applications for a DriveShare Rental</h4>
     {% if user_applications_outgoing %}
         {% for record in user_applications_outgoing %}
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; height: 15rem;">
             <div class="card-body">
               <h5 class="card-title">Host: {{ record.owner_username }}</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
@@ -37,12 +42,29 @@
                     <p>Status: Approved</p>
                 {% else %}
                     <p>Status: Pending</p>
-                {% endif %}
+                <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
+                    {% endif %}
             </div>
         </div> 
         {% endfor %}
     {% else %}
     <p>Your registered DriveShare vehicles will appear here.</p>
+    {% for record in user_applications_outgoing %}
+        <div class="card" style="width: 18rem; height: 9rem;">
+            <div class="card-body">
+              <h5 class="card-title">Host: {{ record.owner_username }}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
+                {% if record.is_approved == True %}
+                    <p>Status: Approved</p>
+                {% else %}
+                    <p>Status: Pending</p>
+                <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
+                {% endif %}
+            </div>
+        </div> 
+        {% endfor %}
     {% endif %}
 
     <h4>Requests for your DriveShare vehicles</h4>
@@ -52,7 +74,9 @@
             <div class="card-body">
               <h5 class="card-title">Applicant: {{ record.borrower_username }}</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
-                {% if record.is_approved == True %}
+                <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
+              {% if record.is_approved == True %}
                     <p>Status: Approved</p>
                 {% else %}
                     <p>Status: Pending</p>
