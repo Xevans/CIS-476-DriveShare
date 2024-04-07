@@ -15,10 +15,10 @@ class ListingForm(forms.ModelForm):
         fields = ['make', 'model', 'year', 'size_type', 'color', 'mileage', 'cost_per_day']
 
 class UpdateListingForm(forms.ModelForm):
-    is_available = forms.BooleanField(required=False)
-    cost_per_day = forms.FloatField(required=False)
-    color = forms.CharField(required=False, max_length=50)
-    mileage = forms.IntegerField(required=False)
+    is_available = forms.BooleanField(required=True)
+    cost_per_day = forms.FloatField(required=True)
+    color = forms.CharField(required=True, max_length=50)
+    mileage = forms.IntegerField(required=True)
 
     class Meta:
         model = Listings

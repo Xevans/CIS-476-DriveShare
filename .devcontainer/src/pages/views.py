@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.forms import UpdateBalanceForm
-from .forms import ListingForm, RentalApplicationForm, ReviewForm
+from .forms import ListingForm, RentalApplicationForm, ReviewForm, UpdateListingForm
 from .models import Listings, RentalApplication, RentalTansactionHistory, Reviews
 from django.contrib import messages
 from django.db.models import Q
@@ -104,6 +104,7 @@ def wallet(request):
             request.user.save()
             return redirect(to='users-wallet')
         
+        
     else:
         balance_form = UpdateBalanceForm(instance=request.user.profile)
 
@@ -115,8 +116,9 @@ def myListings(request):
 
 @login_required
 def myListings(request):
+    listing_form = ListingForm(request.POST, instance=request.user.profile)
+    update_listing_form = UpdateListingForm(request.POST, instance=request.user.profile)
     if request.method == 'POST':
-        listing_form = ListingForm(request.POST, instance=request.user.profile)
 
         if listing_form.is_valid():
             messages.success(request, 'Your listing was added successfully.')
@@ -140,16 +142,31 @@ def myListings(request):
 
             return redirect(to='users-listings')
         
-        else:
-            print("not valid")
+        elif update_listing_form.is_valid():
+            this_is_available = update_listing_form.cleaned_data.get('is_available')
+            this_cost_per_day = update_listing_form.cleaned_data.get('cost_per_day')
+            this_color = update_listing_form.cleaned_data.get('color')
+            this_mileage = update_listing_form.cleaned_data.get('mileage')
+
+            this_vehicle_id = request.POST['vehicle-id']
+
+            vehicle = Listings.objects.get(vehicle_listing_id=this_vehicle_id)
+            vehicle.is_available = this_is_available
+            vehicle.cost_per_day = this_cost_per_day
+            vehicle.color = this_color
+            vehicle.mileage = this_mileage
+            vehicle.save()
+            return redirect(to='users-listings')
+    
         
     else:
         listing_form = ListingForm(request.POST, instance=request.user.profile)
+        update_listing_form = UpdateListingForm(request.POST, instance=request.user.profile)
 
         this_user = request.user.username # get current user's username
         listings_from_this_user = Listings.objects.filter(Q(owner_username=this_user))
 
-    return render(request, 'my_listings.html', {'listing_form': listing_form, 'current_user_listings': listings_from_this_user})
+    return render(request, 'my_listings.html', {'update_listing_form':update_listing_form, 'listing_form': listing_form, 'current_user_listings': listings_from_this_user})
 
 @login_required
 def publicListings(request):
