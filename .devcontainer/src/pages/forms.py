@@ -27,7 +27,7 @@ class UpdateListingForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
-    review_text = forms.CharField(required=True, max_length=500)
+    review_text = forms.CharField(widget=forms.Textarea(attrs={'cols': 40, 'rows': 10}))
 
     class Meta:
         model = Reviews
@@ -41,3 +41,4 @@ class RentalApplicationForm(forms.ModelForm):
     class Meta:
         model = RentalApplication
         fields = ['req_lease_length_days', 'message']
+

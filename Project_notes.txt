@@ -96,7 +96,7 @@ make it so that only one persone can apply at a time.
 (2) Work on review system. (if user has transacted with another user, the reviews page shows the user's name and a textbox.)
 (3) messaging system
 
-4/5
+4/5 - 4/6
 fix payment process (done)
 rebuild db try to apply and approve and see if balance is negated. (done)
 
@@ -106,10 +106,40 @@ if record is_available parameter is false, show disabled button that says unavai
 
 Allow a message field in the application form and model. Display the message in the card on the dashboard. (done)
 
-Add a past transactions page
+Add a past transactions page (done)
 
 Add a review page where the view checks to see if the user has any past transactions
 if so, it allows the user to write a review for each unique username found.
+
+
+
+4/7
+Review System:
+In dashboard view
+when an application is approved -> create two review objects.
+    - one for the owner and one for the borrower.
+    - set both their application ID fields to the current application being approved
+    - set the unset members of the review object ex: make, model, year, days leased.
+
+In Review view
+check to see if the logged in user has any reviews linked to their username where is_published is false
+if so
+    - for each object found, search for the related application using the application id field
+        - display the object information on screen per review unpublished
+        - have a modal form for each, so the user can fill out the review text.
+
+if is_published is true
+    - for each published review
+        - display the rental information, followed by the published review
+
+
+Check to see if the logged in user has any reviews about themself
+    - for each review in the table where the logged in user is a recipient
+        - display the publisher, make, model, year, and review.
+
+
+
+
 
 show sucess messages on all pages. (optional)
 

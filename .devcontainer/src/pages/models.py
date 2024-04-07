@@ -18,7 +18,13 @@ class Reviews(models.Model):
     sender = models.CharField(max_length=100, default="")
     recipient = models.CharField(max_length=100, default="")
     review_text = models.TextField(default="")
+    make = models.CharField(max_length=30, default="")
+    model = models.CharField(max_length=30, default="")
+    year = models.IntegerField(default = 2010)
+    req_lease_length_days = models.IntegerField(default=2)
+    application_id = models.IntegerField(default=-1)
     review_id = models.IntegerField(default=-1)
+    is_published = models.BooleanField(default=False)
 
 
 class RentalApplication(models.Model):

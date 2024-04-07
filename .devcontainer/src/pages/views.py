@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.forms import UpdateBalanceForm
-from .forms import ListingForm, RentalApplicationForm
-from .models import Listings, RentalApplication, RentalTansactionHistory
+from .forms import ListingForm, RentalApplicationForm, ReviewForm
+from .models import Listings, RentalApplication, RentalTansactionHistory, Reviews
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -54,6 +54,18 @@ def dashboard(request):
         
         new_rental_history = RentalTansactionHistory.objects.create(owner_username=this_user_username, borrower_username=this_application.borrower_username, cost_per_day=this_application.cost_per_day, vehicle_listing_id=this_application.vehicle_listing_id, lease_length_days=this_application.req_lease_length_days, application_id=this_application_id)
         new_rental_history.save()
+
+        # initialize review for owner
+        new_review = Reviews.objects.create(sender=this_user_username, recipient=this_application.borrower_username, make=this_listing.make, model=this_listing.model, year=this_listing.year, req_lease_length_days=this_application.req_lease_length_days, application_id=this_application_id)
+        new_review.save()
+        new_review.review_id = new_review.pk
+        new_review.save()
+
+        # initialize review for borrower
+        new_review = Reviews.objects.create(sender=this_application.borrower_username, recipient=this_user_username, make=this_listing.make, model=this_listing.model, year=this_listing.year, req_lease_length_days=this_application.req_lease_length_days, application_id=this_application_id)
+        new_review.save()
+        new_review.review_id = new_review.pk
+        new_review.save()
         
         messages.success(request, f'You Approve your Driveshare! ${rental_total_cost} has been deposited into your account')
 
@@ -185,3 +197,61 @@ def publicListings(request):
 
     return render(request, 'listings.html', {'all_listings': listings_from_all_users, 'rental_application_form': rental_application_form})
 
+
+@login_required
+def rentalHistory(request):
+    return render(request, "rental_history.html")
+
+
+
+@login_required
+def rentalHistory(request):
+
+    # get rentals associated with this user (where user was either the borrower or the lender, indicate so on the page)
+    past_provided_rentals = RentalTansactionHistory.objects.filter(owner_username=request.user.username)
+    past_recieved_rentals = RentalTansactionHistory.objects.filter(borrower_username=request.user.username)
+    
+
+    return render(request, "rental_history.html", {'provided_rentals': past_provided_rentals, 'recieved_rentals': past_recieved_rentals})
+
+
+
+@login_required
+def myReviews(request):
+    return render(request, "reviews.html")
+
+
+@login_required
+def myReviews(request):
+
+    review_form = ReviewForm(request.POST, instance=request.user.profile)
+
+    if request.method == "POST":
+        if review_form.is_valid():
+            this_review_id = request.POST['review-id']
+            this_review_text = review_form.cleaned_data['review_text']
+            
+            # fetch review object, update the publish field and review field, save
+            update_review = Reviews.objects.get(review_id=this_review_id)
+            update_review.review_text = str(this_review_text) # not valid?
+            update_review.is_published = True
+            update_review.save()
+            print(update_review.sender)
+            print(this_review_text)
+            print(update_review.review_text)
+            
+            return redirect(to='users-reviews')
+
+
+    else:
+        review_form = ReviewForm(request.POST, instance=request.user.profile)
+
+        # check to see if any reviews are unpublished
+        unwritten_reviews = Reviews.objects.filter(Q(sender=request.user.username) & Q(is_published=False))
+        # check to see if any reviews user has published
+        written_reviews = Reviews.objects.filter(Q(sender=request.user.username) & Q(is_published=True))
+        # check to see if any reviews are published about this user
+        reviews_about_me = Reviews.objects.filter(Q(recipient=request.user.username) & Q(is_published=True))
+
+
+    return render(request, "reviews.html", {'review_form': review_form, 'unwritten_reviews': unwritten_reviews, 'written_reviews': written_reviews, 'reviews_about_me': reviews_about_me})

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Rental History{% endblock title %}
+{% block content %}
+
+<h1> Rental History.</h1>
+
+    {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+    <div>
+        <h4>DriveShares you rented out to other Members</h4>
+        {% if provided_rentals %}
+            {% for record in provided_rentals %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">Host: {{ record.owner_username }}</h5>
+                <h5 class="card-title">Borrower: {{ record.borrower_username }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
+                    {% if record.is_returned == True %}
+                        <p>Status: returned</p>
+                    {% else %}
+                        <p>Status: Not yet returned</p>
+                    {% endif %}
+                </div>
+            </div> 
+            {% endfor %}
+        {% else %}
+            <h5>You past rental transactions will appear here.</h5>
+        {% endif %}
+
+        <h4>DriveShares you rented from other Members</h4>
+        {% if provided_rentals %}
+            {% for record in provided_rentals %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">Host: {{ record.owner_username }}</h5>
+                <h5 class="card-title">Borrower: {{ record.borrower_username }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
+                    {% if record.is_returned == True %}
+                        <p>Status: returned</p>
+                    {% else %}
+                        <p>Status: Not yet returned</p>
+                    {% endif %}
+                </div>
+            </div> 
+            {% endfor %}
+        {% else %}
+            <h5>You past rental transactions will appear here.</h5>
+        {% endif %}
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}My Reviews{% endblock title %}
+{% block content %}
+
+<h1> {{ user.username }}'s Reviews.</h1>
+
+    {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+    <div>
+        {% if unwritten_reviews %}
+        {% for record in unwritten_reviews %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"> How was your experience with {{ record.recipient }}? </h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary"> {{ record.make }} {{ record.model }} {{ record.year }}</h6>
+              <p class="card-text">Tell us about your DriveShare experience with this member.</p>
+
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Review
+              </button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Write a Review</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-content">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="small mb-1"> Review ID</label>
+                                    <input class="form-control" type="text" name="review-id" value="{{ record.review_id }}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="small mb-1">Review</label>
+                                    {{ review_form.review_text }}       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Publish</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        {% else %}
+        <h4>No new reviews to write.</h4>
+        {% endif %}
+    </div>
+
+
+    <div>
+        {% if written_reviews %}
+        <h4>Reviews you've written for other DriveShare members</h4>
+        {% for record in written_reviews %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"> DriveShare with {{ record.recipient }} </h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">{{ record.make }} {{ record.model }} {{ record.year }}</h6>
+              <p class="card-text"> {{ record.review_text }} </p>
+            </div>
+          </div>
+        {% endfor %}
+        {% else %}
+        <h4>Reviews you write will display here.</h4>
+        {% endif %}
+    </div>
+
+    <div>
+        {% if reviews_about_me %}
+        <h4>Reviews that DriveShare members have written of you</h4>
+        {% for record in reviews_about_me %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ record.sender }} shared their experience with you.</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">{{ record.make }} {{ record.model }} {{ record.year }}</h6>
+              <p class="card-text"> {{ record.review_text }} </p>
+            </div>
+          </div>
+        {% endfor %}
+        {% else %}
+        <h4>Reviews other members write about you will display here.</h4>
+        {% endif %}
+    </div>
+
+
+
+    {% endblock content %}
