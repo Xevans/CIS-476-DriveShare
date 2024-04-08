@@ -5,7 +5,6 @@
         <h1>{{user.username}}'s Listings</h1>
     </div>
     <div>
-        <h3 style="text-align: center;">Upload a Listing</h3>
          <div class="row">
             <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
         </div>
@@ -21,123 +20,152 @@
                 </button>
             </div>
         {% endif %}
-        <div class="form-content" style="text-align: center;">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-row">
-                    <div class="">
-                        <div class="form-group">
-                            <label class="small mb-1">Make of Vehicle:</label>
-                            {{ listing_form.make }}
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="small mb-1">Model of Vehicle:</label>
-                            {{ listing_form.model }}
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="small mb-1">Year of Vehicle:</label>
-                            {{ listing_form.year }}
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="small mb-1">Body Type:</label>
-                            {{ listing_form.size_type }}
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="small mb-1">Color of Vehicle:</label>
-                            {{ listing_form.color }}
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="small mb-1">Mileage of Vehicle:</label>
-                            {{ listing_form.mileage }}
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="small mb-1">Cost Per Day:</label>
-                            {{ listing_form.cost_per_day }}
-                        </div>
+
+
+        <div class="container text-center">
+            <div class="row">
+              <div class="col">
+                <div class="card text-center">
+                    <div class="card-header">
+                      Vehicle Registration Form
                     </div>
-                </div>
-                <br><br>
-                <button type="submit" class="btn btn-dark btn-lg">List Vehicle for sharing</button>
-            </form>
-        </div>
-
-        <br>
-        <div style="text-align: center;">
-            <!-- Loop through listings-->
-            {% if current_user_listings %}
-            <h4>Your Listings</h4>
-            {% for record in current_user_listings %}
-
-                <div class="card" style="width: 35rem; left: 440px; text-align: center;">
-                    <div class="card-body" style="text-align: center;">
-                      <h5 class="card-title"> Your Vehicle </h5>
-                      <h6 class="card-subtitle mb-2 text-body-secondary"> <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
-                        <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles 
-                        <br>Cost per Day: ${{record.cost_per_day}}</be></p>
-        
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Update
-                      </button>
-        
-                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel">Update Listing</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <form method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="form-content" style="text-align: center;">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="small mb-1"> Vehicle ID</label>
-                                            <input class="form-control" type="text" name="vehicle-id" value="{{ record.vehicle_listing_id }}" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="small mb-1">Is this vehicle still available?</label>
-                                            {{ update_listing_form.is_available }}       
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="small mb-1">Cost of rental per day</label>
-                                            {{ update_listing_form.cost_per_day }}       
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="small mb-1">Color of Vehicle</label>
-                                            {{ update_listing_form.color }}       
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="small mb-1">Engine miles</label>
-                                            {{ update_listing_form.mileage }}       
-                                        </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Fill out the fields below and upload your DiveShare</h5>
+                      <div class="form-content" style="">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="" style="text-align: left; ">
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Make of Vehicle</label><br>
+                                        {{ listing_form.make }}
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Model of Vehicle</label><br>
+                                        {{ listing_form.model }}
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Year of Vehicle</label><br>
+                                        {{ listing_form.year }}
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Body Type</label><br>
+                                        {{ listing_form.size_type }}
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Color of Vehicle</label><br>
+                                        {{ listing_form.color }}
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Mileage of Vehicle</label><br>
+                                        {{ listing_form.mileage }}
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="medium mb-1">Cost Per Day</label><br>
+                                        {{ listing_form.cost_per_day }}
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Publish</button>
+                            </div>
+                            <br><br>
+                            <button type="submit" class="btn btn-dark btn-lg">List Vehicle for sharing</button>
+                        </form>
+                    </div>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                      
+                    </div>
+                </div>
+
+                
+              </div>
+              <div class="col-6">
+
+                <div style="text-align: center;">
+                    <!-- Loop through listings-->
+                    {% if current_user_listings %}
+                    <h4>Your Listings</h4>
+                    {% for record in current_user_listings %}
+        
+                        <div class="card" style="max-width: 50%; text-align: center;">
+                            <div class="card-body" style="text-align: center; margin: auto;">
+                              <h5 class="card-title"> Your Vehicle </h5>
+                              <h6 class="card-subtitle mb-2 text-body-secondary"> <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles 
+                                <br>Cost per Day: ${{record.cost_per_day}}</be></p>
+                
+                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Update
+                              </button>
+                
+                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Update Listing</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-content" style="text-align: center;">
+                                            <div style="max-width: 50%;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1"> Vehicle ID</label>
+                                                        <input class="form-control" type="text" name="vehicle-id" value="{{ record.vehicle_listing_id }}" readonly>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Is this vehicle still available?</label>
+                                                        {{ update_listing_form.is_available }}       
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Cost of rental per day</label>
+                                                        {{ update_listing_form.cost_per_day }}       
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Color of Vehicle</label>
+                                                        {{ update_listing_form.color }}       
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="small mb-1">Engine miles</label>
+                                                        {{ update_listing_form.mileage }}       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Publish</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
                                 </div>
-                              </form>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            {% endfor %}
-
-            {% else %}
-            <h4>You haven't registered any vehichles yet </h4>
-            {% endif %}
-
+        
+                    {% endfor %}
+        
+                    {% else %}
+                    <h4>You haven't registered any vehichles yet </h4>
+                    {% endif %}
+        
+                </div>
+            </div>
         </div>
+
+        
+
+        <br>
+        
     </div>
 
 {% endblock content %}

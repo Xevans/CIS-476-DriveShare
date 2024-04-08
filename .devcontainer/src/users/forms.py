@@ -87,6 +87,7 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['avatar', 'bio']
 
+
 class UpdateBalanceForm(forms.ModelForm):
     balance = forms.FloatField()
 

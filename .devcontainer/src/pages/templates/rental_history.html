@@ -17,46 +17,80 @@
         </div>
     {% endif %}
 
-    <div>
-        <h4>DriveShares you rented out to other Members</h4>
-        {% if provided_rentals %}
-            {% for record in provided_rentals %}
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                <h5 class="card-title">Host: {{ record.owner_username }}</h5>
-                <h5 class="card-title">Borrower: {{ record.borrower_username }}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
-                    {% if record.is_returned == True %}
-                        <p>Status: returned</p>
-                    {% else %}
-                        <p>Status: Not yet returned</p>
-                    {% endif %}
-                </div>
-            </div> 
-            {% endfor %}
-        {% else %}
-            <h5>You past rental transactions will appear here.</h5>
-        {% endif %}
 
-        <h4>DriveShares you rented from other Members</h4>
-        {% if recieved_rentals %}
-            {% for record in recieved_rentals %}
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                <h5 class="card-title">Host: {{ record.owner_username }}</h5>
-                <h5 class="card-title">Borrower: {{ record.borrower_username }}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
-                    {% if record.is_returned == True %}
-                        <p>Status: returned</p>
+    <div class="accordion" id="accordionPanelsStayOpenExample" style="margin: auto; max-width: 60%;">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              Registered vehichles you've shared.
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <div>
+                    <h4>DriveShares you rented out to other Members</h4>
+                    {% if provided_rentals %}
+                        {% for record in provided_rentals %}
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                            <h5 class="card-title">Host: {{ record.owner_username }}</h5>
+                            <h5 class="card-title">Borrower: {{ record.borrower_username }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
+                                {% if record.is_returned == True %}
+                                    <p>Status: returned</p>
+                                {% else %}
+                                    <p>Status: Not yet returned</p>
+                                {% endif %}
+                            </div>
+                        </div> 
+                        {% endfor %}
                     {% else %}
-                        <p>Status: Not yet returned</p>
+                        <h5>Your past rental transactions will appear here.</h5>
                     {% endif %}
                 </div>
-            </div> 
-            {% endfor %}
-        {% else %}
-            <h5>You past rental transactions will appear here.</h5>
-        {% endif %}
-    </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              Vehicles you've borrowed
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              
+                <div>
+                    <h4>DriveShares you rented from other Members</h4>
+                    {% if recieved_rentals %}
+                        {% for record in recieved_rentals %}
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                            <h5 class="card-title">Host: {{ record.owner_username }}</h5>
+                            <h5 class="card-title">Borrower: {{ record.borrower_username }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">For {{ record.req_lease_length_days }} days at ${{ record.cost_per_day }}&#47;day</h6>
+                                {% if record.is_returned == True %}
+                                    <p>Status: returned</p>
+                                {% else %}
+                                    <p>Status: Not yet returned</p>
+                                {% endif %}
+                            </div>
+                        </div> 
+                        {% endfor %}
+                    {% else %}
+                        <h5>Your past rental transactions will appear here.</h5>
+                    {% endif %}
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+
+    
 
 {% endblock content %}
