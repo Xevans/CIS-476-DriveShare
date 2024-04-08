@@ -20,7 +20,12 @@
     <h4>Your Listings</h4>
     {% if user_listings %}
         {% for record in user_listings %}
-        <p>{{ record.year }} {{ record.make }} {{ record.model }}: {{ record.mileage }} miles. {{record.cost_per_day}}</p>
+        <div class="card" style="width: 18rem; height: 9rem;">
+            <div class="card-body">
+              <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles 
+                <br>Cost per Day: ${{record.cost_per_day}}</be></p>
+            </div>
         {% endfor %}
     {% else %}
     <p>Your registered DriveShare vehicles will appear here.</p>
@@ -38,6 +43,8 @@
                 {% else %}
                     <p>Status: Pending</p>
                 {% endif %}
+                <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
             </div>
         </div> 
         {% endfor %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}My Vehichles{% endblock title %}
+{% block title %}My Vehicles{% endblock title %}
 {% block content %}
     <div class="row my-3 p-3" style="text-align: center;">
         <h1>{{user.username}}'s Listings</h1>
@@ -61,8 +61,8 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-dark btn-lg">List Vehicle for sharing</button>
+                <br><br>
+                <button type="submit" class="btn btn-dark btn-lg">List Vehichle for sharing</button>
             </form>
         </div>
 
@@ -76,8 +76,9 @@
                 <div class="card" style="width: 35rem; left: 440px; text-align: center;">
                     <div class="card-body" style="text-align: center;">
                       <h5 class="card-title"> Your Vehicle </h5>
-                      <h6 class="card-subtitle mb-2 text-body-secondary"> {{ record.year }} {{ record.make }} {{ record.model }}: {{ record.mileage }} miles.</h6>
-                      <h6> ${{ record.cost_per_day }} Per day</h6>
+                      <h6 class="card-subtitle mb-2 text-body-secondary"> <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                        <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles 
+                        <br>Cost per Day: ${{record.cost_per_day}}</be></p>
         
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Update
@@ -132,8 +133,7 @@
             {% endfor %}
 
             {% else %}
-            <br>
-            <h4>You haven't registered any vehicles yet </h4>
+            <h4>You haven't registeded any vehichles yet </h4>
             {% endif %}
 
         </div>
