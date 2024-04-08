@@ -33,25 +33,29 @@
                         <label class="small mb-1"> Security Question 3: Make of First Car</label> <br>
                         {{ security_form.sq3 }} 
                     </div>
-                    <button type="submit" class="btn btn-primary col-sm-2" style="margin: auto; margin-top: 20px;">Publish</button>
+                    <button type="submit" class="btn btn-primary col-sm-2" style="margin: auto; margin-top: 20px;">Update</button>
                 </div>
             </div>
         </form>
         <div class="card-footer text-body-secondary">
           Thank you for joining DriveShare!
         </div>
-      </div>
+    </div>
     
       {% else %}
-    <div class="row my-3 p-3" style="text-align: center;">
+    <div class="" style="text-align: center;">
         <h1 style="text-align: center;">Welcome back, {{user.username}}</h1>
         {% endif %}
         {% else %}
-        <h1 style="text-align: center;">Welcome To DriveShare!</h1>
-        <br>
-        <h2 style="text-align: center;">Create An Account Today!</h1>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <h2 style="text-align: center;">Or Sign In!</h1>
+            <div class="card" style="margin: auto; margin-top: 10%; max-width: 30%;">
+                <h2 class="card-header">DriveShare</h2>
+                <div class="card-body">
+                    <h3 class="card-title">Welcome To DriveShare!</h3>
+                    <p class="card-text">Rent out vehicles directly from owners or make money hosting your own!</p>
+                    <a href="{% url 'login' %}" class="btn btn-outline-success">Login</a>
+                    <a href="{% url 'user-registration' %}" class="btn btn-outline-primary"> Register</a>
+                </div>
+            </div>
         {% endif %}
     </div>
 
