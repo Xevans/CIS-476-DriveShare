@@ -13,17 +13,17 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-content">
-            <div class="col-md-5">
+            <div class="row my-3 p-3" style="text-align: center;">
                 <div class="form-group">
-                    <label class="small mb-1"> Seurity Question 1: What city were you born in?</label> <br>
+                    <label class="small mb-1"> Security Question 1: What city were you born in?</label> <br>
                     {{ security_form.sq1 }} 
                 </div>
                 <div class="form-group">
-                    <label class="small mb-1"> Seurity Question 2: Favorite Food?</label> <br>
+                    <label class="small mb-1"> Security Question 2: Favorite Food?</label> <br>
                     {{ security_form.sq2 }} 
                 </div>
                 <div class="form-group">
-                    <label class="small mb-1"> Seurity Question 3: Make of First Car</label> <br>
+                    <label class="small mb-1"> Security Question 3: Make of First Car</label> <br>
                     {{ security_form.sq3 }} 
                 </div>
             </div>
@@ -33,13 +33,18 @@
         </div>
     </form>
     
-    {% else %}
-    <h1>Welcome back, {{user.username}}</h1>
-
-    {% endif %}
-{% else %}
-<h1>Welcome To DriveShare. Create an account today, or Sign in.</h1>
-{% endif %}
+    <div class="row my-3 p-3" style="text-align: center;">
+        {% else %}
+        <h1 style="text-align: center;">Welcome back, {{user.username}}</h1>
+        {% endif %}
+        {% else %}
+        <h1 style="text-align: center;">Welcome To DriveShare!</h1>
+        <br>
+        <h2 style="text-align: center;">Create An Account Today!</h1>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <h2 style="text-align: center;">Or Sign In!</h1>
+        {% endif %}
+    </div>
 
 
 {% endblock content %}
