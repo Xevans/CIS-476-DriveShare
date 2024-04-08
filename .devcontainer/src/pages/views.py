@@ -187,7 +187,7 @@ def publicListings(request):
         if rental_application_form.is_valid():
             this_req_lease_length_days = rental_application_form.cleaned_data['req_lease_length_days']
             this_message = rental_application_form.cleaned_data['message']
-            this_vehicle_id = request.POST['vehichle-id']
+            this_vehicle_id = request.POST['vehicle-id']
             this_borrower_username = request.user.username
             # search for listing by vehicle id
             listing_object = Listings.objects.filter(Q(vehicle_listing_id=this_vehicle_id))
