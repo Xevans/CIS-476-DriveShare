@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}My Vehichles{% endblock title %}
+{% block title %}My Vehicles{% endblock title %}
 {% block content %}
 
-<h1> DriveShare A Vehichle that fits you.</h1>
+<h1> DriveShare A Vehicle that fits you.</h1>
 
 {% if user_form.errors %}
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -19,7 +19,7 @@
 
     <div>
         {% if all_listings %}
-        <h3>Vehichle Selections</h3>
+        <h3>Vehicle Selections</h3>
         {% for record in all_listings %}
             {% if record.owner_username == user.username %}
             <!-- dont show apply button-->
@@ -27,7 +27,8 @@
                 <div class="card-body">
                   <h5 class="card-title">Posted by you</h5>
                   <h6 class="card-subtitle mb-2 text-body-secondary">${{ record.cost_per_day }} Per Day</h6>
-                  <p class="card-text"> {{ record.year }} {{ record.make }} {{ record.model }}: {{ record.mileage }} miles.</p>
+                  <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                    <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
                 </div>
             </div>
             {% elif record.is_available == False %}
@@ -36,7 +37,8 @@
                 <div class="card-body">
                   <h5 class="card-title">Posted by you</h5>
                   <h6 class="card-subtitle mb-2 text-body-secondary">${{ record.cost_per_day }} Per Day</h6>
-                  <p class="card-text"> {{ record.year }} {{ record.make }} {{ record.model }}: {{ record.mileage }} miles.</p>
+                  <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} 
+                    <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
                   <button type="button" class="btn btn-secondary" disabled>Unavailable</button>
                 </div>
             </div>
@@ -46,7 +48,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Posted by: {{ record.owner_username }}</h5>
                   <h6 class="card-subtitle mb-2 text-body-secondary">${{ record.cost_per_day }} Per Day</h6>
-                  <p class="card-text"> {{ record.year }} {{ record.make }} {{ record.model }}: {{ record.mileage }} miles.</p>
+                  <p class="card-text"> Year: {{ record.year }} <br>Vehicle Make: {{ record.make }} <br>Vehicle Model: {{ record.model }} <br>Mileage: {{ record.mileage }} miles </be></p>
                   <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Apply For DriveShare
                   </button>
@@ -82,12 +84,12 @@
                                 <div class="form-row">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label class="small mb-1">How Many Days Will You Rent:</label>
+                                            <label class="small mb-1">How Many Days Will You Rent?:</label>
                                             {{ rental_application_form.req_lease_length_days }}
                                         </div>
                                         <div class="form-group">
                                             <label class="small mb-1">Listing ID:</label>
-                                            <input class="form-control" type="text" name="vehichle-id" value="{{ record.vehicle_listing_id }}" readonly>                                           
+                                            <input class="form-control" type="text" name="vehicle-id" value="{{ record.vehicle_listing_id }}" readonly>                                           
                                         </div>
                                         <div class="form-group">
                                           <label class="small mb-1">Message to Owner:</label>
