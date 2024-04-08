@@ -26,14 +26,17 @@
             <div class="form-row">
                 <div class="">
                     <div class="form-group">
-                        <label class="small mb-1">Enter Amount For Payment:</label>
-                        {{ balance_form.balance }}
+                        <div class="card" style="margin: auto; max-width: 50%;">
+                            <h5 class="card-header">Balance</h5>
+                            <div class="card-body">
+                              <label class="small mb-1" style="padding-right: 5px;"> Add to Balance: </label>{{ balance_form.balance }}
+                              <br><br></brz><button type="submit" class="btn btn-primary btn-lg">Confirm</button>
+                            </div>
+                          </div>
                     </div>
                 </div>
             </div>
-            <br><br>
-            <button type="submit" class="btn btn-dark btn-lg">Add To Balance</button>
-            <br><br>
+            <br>
             <h3> Your Balance: {{user.profile.balance}}</h3>
         </form>
     </div>
