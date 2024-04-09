@@ -13,7 +13,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "pip3 install --user -r requirements.txt",
-	"postCreateCommand": "pip install -r requirements.txt"
+	"postCreateCommand": "pip install -r requirements.txt && source .devcontainer/src/.venv/bin/activate && cd .devcontainer/src && python manage.py runserver"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
