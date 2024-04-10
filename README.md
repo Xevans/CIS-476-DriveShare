@@ -8,8 +8,11 @@ Jason DeLam
 
 
 Run these three commands to run the server on local host:
+
 source .devcontainer/src/.venv/bin/activate
+
 cd .devcontainer/src
+
 python manage.py runserver
 
 
