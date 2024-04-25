@@ -17,5 +17,5 @@ python manage.py runserver
 
 
 
-Side note:
-Docker will install dependencies
+Note:
+Docker requirements.txt will install dependencies
