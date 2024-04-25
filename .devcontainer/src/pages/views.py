@@ -94,13 +94,22 @@ def wallet(request):
 @login_required
 def wallet(request):
     if request.method == 'POST':
-        balance_form = UpdateBalanceForm(request.POST, instance=request.user.profile)
+        balance_form = UpdateBalanceForm(request.POST)
 
         if balance_form.is_valid():
             #balance_form.save()
             messages.success(request, 'Your balance has been updated successfully')
             # do addition for user balance with the return value in request
-            request.user.profile.balance += balance_form.cleaned_data['balance']
+            ammount_to_add = float(balance_form.cleaned_data['balance'])
+
+            current_balance = request.user.profile.balance
+
+            new_balance = current_balance + ammount_to_add
+
+            print(f"{ammount_to_add} + {current_balance}")
+
+            request.user.profile.balance = new_balance
+            request.user.profile.save()
             request.user.save()
             return redirect(to='users-wallet')
         
@@ -178,7 +187,7 @@ def publicListings(request):
         if rental_application_form.is_valid():
             this_req_lease_length_days = rental_application_form.cleaned_data['req_lease_length_days']
             this_message = rental_application_form.cleaned_data['message']
-            this_vehicle_id = request.POST['vehichle-id']
+            this_vehicle_id = request.POST['vehicle-id']
             this_borrower_username = request.user.username
             # search for listing by vehicle id
             listing_object = Listings.objects.filter(Q(vehicle_listing_id=this_vehicle_id))

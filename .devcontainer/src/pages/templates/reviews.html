@@ -17,92 +17,133 @@
         </div>
     {% endif %}
 
-    <div>
-        {% if unwritten_reviews %}
-        {% for record in unwritten_reviews %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title"> How was your experience with {{ record.recipient }}? </h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary"> {{ record.make }} {{ record.model }} {{ record.year }}</h6>
-              <p class="card-text">Tell us about your DriveShare experience with this member.</p>
 
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Review
-              </button>
+    <div class="accordion" id="accordionPanelsStayOpenExample" style="max-width: 60%; margin: auto;">
 
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Write a Review</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-content">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label class="small mb-1"> Review ID</label>
-                                    <input class="form-control" type="text" name="review-id" value="{{ record.review_id }}" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label class="small mb-1">Review</label>
-                                    {{ review_form.review_text }}       
-                                </div>
-                            </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            Reviews available for you to write
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <div>
+              {% if unwritten_reviews %}
+              {% for record in unwritten_reviews %}
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title"> How was your experience with {{ record.recipient }}? </h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary"> {{ record.make }} {{ record.model }} {{ record.year }}</h6>
+                    <p class="card-text">Tell us about your DriveShare experience with this member.</p>
+      
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Review
+                    </button>
+      
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Write a Review</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="form-content">
+                                  <div class="col-md-5">
+                                      <div class="form-group">
+                                          <label class="small mb-1"> Review ID</label>
+                                          <input class="form-control" type="text" name="review-id" value="{{ record.review_id }}" readonly>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="small mb-1">Review</label>
+                                          {{ review_form.review_text }}       
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Publish</button>
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Publish</button>
-                        </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              {% endfor %}
+              {% else %}
+              <h4>No new reviews to write.</h4>
+              {% endif %}
           </div>
-        {% endfor %}
-        {% else %}
-        <h4>No new reviews to write.</h4>
-        {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+            Reviews you've written
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <div>
+              {% if written_reviews %}
+              <h4>Reviews you've written for other DriveShare members</h4>
+              {% for record in written_reviews %}
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title"> DriveShare with {{ record.recipient }} </h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ record.make }} {{ record.model }} {{ record.year }}</h6>
+                    <p class="card-text"> {{ record.review_text }} </p>
+                  </div>
+                </div>
+              {% endfor %}
+              {% else %}
+              <h4>Reviews you write will display here.</h4>
+              {% endif %}
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            Reviews from others
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <div>
+              {% if reviews_about_me %}
+              <h4>Reviews that DriveShare members have written of you</h4>
+              {% for record in reviews_about_me %}
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ record.sender }} shared their experience with you.</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ record.make }} {{ record.model }} {{ record.year }}</h6>
+                    <p class="card-text"> {{ record.review_text }} </p>
+                  </div>
+                </div>
+              {% endfor %}
+              {% else %}
+              <h4>Reviews other members write about you will display here.</h4>
+              {% endif %}
+          </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
+    
 
-    <div>
-        {% if written_reviews %}
-        <h4>Reviews you've written for other DriveShare members</h4>
-        {% for record in written_reviews %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title"> DriveShare with {{ record.recipient }} </h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">{{ record.make }} {{ record.model }} {{ record.year }}</h6>
-              <p class="card-text"> {{ record.review_text }} </p>
-            </div>
-          </div>
-        {% endfor %}
-        {% else %}
-        <h4>Reviews you write will display here.</h4>
-        {% endif %}
-    </div>
-
-    <div>
-        {% if reviews_about_me %}
-        <h4>Reviews that DriveShare members have written of you</h4>
-        {% for record in reviews_about_me %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{ record.sender }} shared their experience with you.</h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">{{ record.make }} {{ record.model }} {{ record.year }}</h6>
-              <p class="card-text"> {{ record.review_text }} </p>
-            </div>
-          </div>
-        {% endfor %}
-        {% else %}
-        <h4>Reviews other members write about you will display here.</h4>
-        {% endif %}
-    </div>
+    
 
 
 

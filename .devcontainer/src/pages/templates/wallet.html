@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block title %}My Wallet{% endblock title %}
 {% block content %}
-    <div class="row my-3 p-3">
-        <h1>This is the Wallet page for {{user.username}}</h1>
-        <h2>Your Balance: {{user.profile.balance}}</h2>
+    <div class="row my-3 p-3": style="text-align: center;">
+        <h1>{{user.username}}'s Wallet</h1>
     </div>
 
-    <div class="row my-3 p-3">
+    <div class="row">
         <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
     </div>
     {% if user_form.errors %}
@@ -21,19 +20,24 @@
             </button>
         </div>
     {% endif %}
-    <div class="form-content">
+    <div class="form-content" style="text-align: center;">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
-                <div class="col-md-5">
+                <div class="">
                     <div class="form-group">
-                        <label class="small mb-1">New Balance:</label>
-                        {{ balance_form.balance }}
+                        <div class="card" style="margin: auto; max-width: 50%;">
+                            <h5 class="card-header">Balance</h5>
+                            <div class="card-body">
+                              <label class="small mb-1" style="padding-right: 5px;"> Add to Balance: </label>{{ balance_form.balance }}
+                              <br><br></brz><button type="submit" class="btn btn-primary btn-lg">Confirm</button>
+                            </div>
+                          </div>
                     </div>
                 </div>
             </div>
-            <br><br>
-            <button type="submit" class="btn btn-dark btn-lg">Add To Balance</button>
+            <br>
+            <h3> Your Balance: {{user.profile.balance}}</h3>
         </form>
     </div>
 

@@ -1,9 +1,9 @@
 {% extends "auth_base.html" %}
 {% block title %} Login Page {% endblock title%}
 {% block content %}
-    <div class="form-content my-3 p-3">
+    <div class="class="form-content my-3 p-3">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class=" row justify-content-center" >
                 <div class="col-lg-5">
                     <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
                         <div class="card-header justify-content-center">
@@ -26,30 +26,37 @@
                                 {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
-                                        <div class="form-group">
+                                        <div class="form-group" style="text-align: center;">
                                             <a href="#"
                                                    class="btn btn-link btn-lg active btn-block">Sign in with GitHub</a>
                                             <a href="#"
                                                    class="btn btn-link btn-lg active btn-block">Sign in with Google</a>
-                                            <hr>
+                                            <hr class="col-md-8 offset-md-2">
                                             <p class="text-center"><strong>OR</strong></p>
-                                            <hr>
-                                            <label class="small mb-1">Username</label>
+                                            <hr class="col-md-8 offset-md-2">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="col-md-8 offset-md-2">
+                                          <div class="form-group" style="text-align: center;">
+                                              <label class="small mb-1" style="text-align: center;">Username</label>
                                             {{ form.username }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-10 offset-md-1">
-                                        <div class="form-group">
+                                    <div class="col-md-8 offset-md-2">
+                                        <div class="form-group" style="text-align: center;">
                                           <label class="small mb-1">Password</label>
                                           {{ form.password }}
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="form-row">
-                                    <div class="col-md-10 offset-md-1">
-                                        <div class="form-group">
+                                    <div class="col-md-8 offset-md-2">
+                                        <div class="form-group" style="text-align: center;">
                                             <!-- Add a Remember me functionality -->
                                             {{ form.remember_me }}
                                             <label> Remember me</label>
@@ -57,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-10 offset-md-1">
+                                    <div class="col-md-8 offset-md-2">
                                         <div class="form-group mt-0 mb-1">
                                           <button name="login" class="col-md-12 btn btn-dark" id="login">Sign in</button>
                                         </div>
